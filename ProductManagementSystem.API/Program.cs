@@ -2,6 +2,7 @@ using Microsoft.OpenApi.Models;
 using ProductManagementSystem.API;
 using ProductManagementSystem.Application;
 using ProductManagementSystem.Infrastructure;
+using ProductManagementSystem.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,6 +52,12 @@ builder.Services.AddSwaggerGen(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseApiServices();
+
+if (app.Environment.IsDevelopment())
+{
+    app.InitializeDatabaseAsync();
+}
 
 app.UseSwagger();
 app.UseSwaggerUI();
