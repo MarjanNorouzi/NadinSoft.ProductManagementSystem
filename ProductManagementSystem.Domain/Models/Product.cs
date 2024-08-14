@@ -1,6 +1,6 @@
-﻿using DanayanCrowd.Data.Entities.Common;
+﻿using ProductManagementSystem.Domain.Models.Common;
 
-namespace Ordering.Domain.Models;
+namespace ProductManagementSystem.Domain.Models;
 
 public class Product : BaseEntity
 {
@@ -13,4 +13,8 @@ public class Product : BaseEntity
     public string ManufactureEmail { get; set; } = default!;
 
     public bool IsAvailable { get; set; }
+
+    public int UserId { get; set; }
+
+    public virtual ApplicationUser User { get; set; }
 }

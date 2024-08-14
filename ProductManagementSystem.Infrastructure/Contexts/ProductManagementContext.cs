@@ -1,11 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Ordering.Domain.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using ProductManagementSystem.Domain.Models;
 using ProductManagementSystem.Infrastructure.Configurations;
 
 namespace ProductManagementSystem.Infrastructure.Contexts
 {
     public class ProductManagementContext(DbContextOptions<ProductManagementContext> option)
-        : DbContext(option)
+        : IdentityDbContext<ApplicationUser, IdentityRole<int>, int>(option)
     {
         public DbSet<Product> Products { get; set; }
 
