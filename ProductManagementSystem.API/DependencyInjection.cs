@@ -9,7 +9,6 @@ public static class DependencyInjection
     {
         #region " Cross - Cutting Services "
 
-        services.AddDbContext<ProductManagementContext>(x => x.UseSqlServer(configuration.GetConnectionString("ProductManagementSystemDb")));
 
         #endregion
 
