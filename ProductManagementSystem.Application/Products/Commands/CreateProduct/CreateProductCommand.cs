@@ -1,5 +1,8 @@
-﻿namespace ProductManagementSystem.Application.Products.Commands.CreateProduct;
+﻿using ProductManagementSystem.Application.CQRS;
+using ProductManagementSystem.Domain.Models;
 
-public class CreateProductCommand
-{
-}
+namespace ProductManagementSystem.Application.Products.Commands.CreateProduct;
+
+public record CreateProductCommand(Product Product) : ICommand<CreateProductResult>;
+
+public record CreateProductResult(int Id);

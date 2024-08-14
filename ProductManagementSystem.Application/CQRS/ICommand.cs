@@ -1,6 +1,9 @@
 ﻿namespace ProductManagementSystem.Application.CQRS;
 
-public interface ICommand
+public interface ICommand : ICommand<int>
 {
-    int Id { get; }
+}
+
+public interface ICommand<out TResult>
+{
 }
