@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+﻿using Microsoft.EntityFrameworkCore;
+using ProductManagementSystem.Infrastructure.Contexts;
 
 namespace ProductManagementSystem.API;
 
@@ -8,7 +9,10 @@ public static class DependencyInjection
     {
         #region " Cross - Cutting Services "
 
+        services.AddDbContext<ProductManagementContext>(x => x.UseSqlServer(configuration.GetConnectionString("ProductManagementSystemDb")));
+
         #endregion
+
         return services;
     }
 
