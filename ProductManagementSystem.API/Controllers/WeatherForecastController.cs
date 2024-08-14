@@ -13,7 +13,7 @@ namespace ProductManagementSystem.API.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
+        [HttpGet("[action]")]
         public IEnumerable<string> Get()
         {
             return Enumerable.Range(1, 5).Select(index => index.ToString()).ToArray();
