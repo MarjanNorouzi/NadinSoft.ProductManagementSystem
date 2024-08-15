@@ -13,7 +13,6 @@ public class ValidationBehavior<TRequest, TResponse>(
     {
         var context = new ValidationContext<TRequest>(request);
 
-        var a = validators.FirstOrDefault();
         var validationResults = await Task.WhenAll(validators.Select(x => x.ValidateAsync(context, cancellationToken)));
 
         var failures = validationResults

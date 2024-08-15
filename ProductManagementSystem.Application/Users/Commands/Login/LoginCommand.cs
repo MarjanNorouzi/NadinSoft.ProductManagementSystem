@@ -1,12 +1,11 @@
 ﻿using FluentValidation;
 using ProductManagementSystem.Application.CQRS;
-using ProductManagementSystem.Application.Products.Commands.CreateProduct;
 
 namespace ProductManagementSystem.Application.Users.Commands.Login;
 
-public record LoginCommand(string? UserName, string? MD5Password) : ICommand<LoginResult>;
+public record LoginCommand(string? UserName, string? Password) : ICommand<LoginResult>;
 
-public record LoginResult(int Id);
+public record LoginResult(string Token);
 
 public class LoginCommandValidator : AbstractValidator<LoginCommand>
 {
@@ -14,6 +13,6 @@ public class LoginCommandValidator : AbstractValidator<LoginCommand>
     {
         RuleFor(x => x.UserName).NotEmpty().WithMessage("UserName is required");
 
-        RuleFor(x => x.MD5Password).NotEmpty().WithMessage("Password is required.");
+        RuleFor(x => x.Password).NotEmpty().WithMessage("Password is required.");
     }
 }

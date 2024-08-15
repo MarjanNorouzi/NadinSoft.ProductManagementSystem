@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProductManagementSystem.Application.Behaviors;
+using ProductManagementSystem.Application.Securities;
 using System.Reflection;
 
 namespace ProductManagementSystem.Application;
@@ -17,6 +18,7 @@ public static class DependencyInjection
         });
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        services.AddScoped<ITokenService, TokenService>();
 
         return services;
     }

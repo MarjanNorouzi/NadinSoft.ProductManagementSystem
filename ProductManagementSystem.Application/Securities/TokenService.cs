@@ -17,12 +17,12 @@ public class TokenService : ITokenService
 
     public TokenService(IConfiguration configuration)
     {
-        _tokenLifeTime = Convert.ToInt32(configuration.GetSection("Jwt:LifeTimeInMinutes").ToString()!);
+        _tokenLifeTime = Convert.ToInt32(configuration["Jwt:LifeTimeInMinutes"]!);
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("Jwt:Key").ToString()!));
         _signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
     }
 
-    public string GenerateToken(int userId, params Claim[] claims)
+    public string GenerateToken(params Claim[] claims)
     {
         var token = new JwtSecurityToken(
             issuer: null,
@@ -38,5 +38,5 @@ public class TokenService : ITokenService
 
 public interface ITokenService
 {
-    public string GenerateToken(int userId, params Claim[] claims);
+    public string GenerateToken(params Claim[] claims);
 }

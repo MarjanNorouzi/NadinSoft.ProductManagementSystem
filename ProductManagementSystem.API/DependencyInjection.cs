@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using ProductManagementSystem.Domain.Models;
 using ProductManagementSystem.Infrastructure.Contexts;
 
 namespace ProductManagementSystem.API;
@@ -9,6 +10,10 @@ public static class DependencyInjection
     {
         #region " Cross - Cutting Services "
 
+        services
+            .AddIdentity<ApplicationUser, IdentityRole<int>>()
+            .AddEntityFrameworkStores<ProductManagementContext>()
+            .AddDefaultTokenProviders();
 
         #endregion
 
