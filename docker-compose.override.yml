@@ -1,0 +1,28 @@
+version: '3.4'
+
+services:
+  productmanagementsystem.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ConnectionStrings__ProductManagementSystemDb=server=nadinsoftdb;database=ProductManagementSystemDb;User Id=sa;password=N@dinSoft1054;TrustServerCertificate=True;
+    depends_on:
+      - nadinsoftdb
+    ports:
+      - "61000:8080"
+      - "61001:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+  nadinsoftdb:
+    container_name: nadinsoftdb
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=N@dinSoft1054
+    restart: always
+    ports:
+      - "61433:61432"
+    volumes:
+      - mssql_nadinsoftdb:/var/opt/mssql

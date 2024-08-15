@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  productmanagementsystem.api:
+    image: ${DOCKER_REGISTRY-}productmanagementsystemapi
+    build:
+      context: .
+      dockerfile: ProductManagementSystem.API/Dockerfile
+
+  nadinsoftdb:
+    image: mcr.microsoft.com/mssql/server
+
+volumes:
+  mssql_nadinsoftdb:
