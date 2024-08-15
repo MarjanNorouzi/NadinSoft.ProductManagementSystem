@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using FluentValidation;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ProductManagementSystem.Application.Behaviors;
 using System.Reflection;
 
 namespace ProductManagementSystem.Application;
@@ -11,7 +13,11 @@ public static class DependencyInjection
         services = services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+            cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
         });
+
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
         return services;
     }
 }
