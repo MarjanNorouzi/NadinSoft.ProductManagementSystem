@@ -4,17 +4,17 @@ namespace ProductManagementSystem.Application.Common.Interfaces;
 
 public interface IProductRepository
 {
-    Task AddAsync(Product product);
+    Task<Product> AddAsync(Product product, CancellationToken cancellationToken = default, bool saveNow = true);
 
-    Task<Product?> GetByIdAsync(string manufactureEmail, DateTime produceDate);
+    Task<Product?> GetByIdAsync(string manufactureEmail, DateTime produceDate, CancellationToken cancellationToken = default);
 
     IAsyncEnumerable<Product> GetAllAsync(int? userId);
 
-    Task<IEnumerable<Product>> GetAllAsync();
+    Task<IEnumerable<Product>> GetAllAsync(CancellationToken cancellationToken = default);
 
-    void UpdateAsync(Product product);
+    Task<bool> UpdateAsync(Product product, CancellationToken cancellationToken = default, bool saveNow = true);
 
-    Task DeleteAsync(string manufactureEmail, DateTime produceDate);
+    Task<bool> DeleteAsync(string manufactureEmail, DateTime produceDate, CancellationToken cancellationToken = default, bool saveNow = true);
 
-    Task<int> SaveChangesAsync();
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

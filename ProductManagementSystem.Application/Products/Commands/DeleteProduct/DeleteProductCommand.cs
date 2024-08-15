@@ -3,7 +3,7 @@ using ProductManagementSystem.Application.CQRS;
 
 namespace ProductManagementSystem.Application.Products.Commands.DeleteProduct;
 
-public record DeleteProductCommand(string ManufactureEmail, DateTime ProduceDate) : ICommand<DeleteProductResult>;
+public record DeleteProductCommand(string? ManufactureEmail, DateTime ProduceDate) : ICommand<DeleteProductResult>;
 
 public record DeleteProductResult(bool IsSuccess);
 

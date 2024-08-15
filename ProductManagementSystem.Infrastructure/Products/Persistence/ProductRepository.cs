@@ -7,24 +7,49 @@ namespace ProductManagementSystem.Infrastructure.Products.Persistence;
 
 public class ProductRepository(ProductManagementContext dbContext) : IProductRepository
 {
-    public async Task AddAsync(Product product) => await dbContext.AddAsync(product);
+    public async Task<Product> AddAsync(Product product, CancellationToken cancellationToken = default, bool saveNow = true)
+    {
+        await dbContext.AddAsync(product, cancellationToken);
 
-    public async Task<Product?> GetByIdAsync(string manufactureEmail, DateTime produceDate) => await dbContext.FindAsync<Product>(manufactureEmail, produceDate);
+        if (saveNow)
+            await dbContext.SaveChangesAsync(cancellationToken);
+
+        return product;
+    }
+
+    public async Task<Product?> GetByIdAsync(string manufactureEmail, DateTime produceDate, CancellationToken cancellationToken = default) => await dbContext.FindAsync<Product>([manufactureEmail, produceDate], cancellationToken);
 
     public IAsyncEnumerable<Product> GetAllAsync(int? userId) => dbContext.Products.Where(p => p.UserId == userId || !userId.HasValue).AsAsyncEnumerable();
 
-    public async Task<IEnumerable<Product>> GetAllAsync() => await dbContext.Products.ToListAsync();
+    public async Task<IEnumerable<Product>> GetAllAsync(CancellationToken cancellationToken = default) => await dbContext.Products.ToListAsync(cancellationToken);
 
-    public void UpdateAsync(Product product) => dbContext.Update(product);
-    //if (!await dbContext.Products.AnyAsync(p => p.ManufactureEmail == product.ManufactureEmail && p.ProduceDate == product.ProduceDate)) throw new Exception("Product not found.");
-
-    public async Task DeleteAsync(string manufactureEmail, DateTime produceDate)
+    public async Task<bool> UpdateAsync(Product product, CancellationToken cancellationToken = default, bool saveNow = true)
     {
-        // TODO : شاید چک کردن وجود داشتن یا نداشتن انتیتی را در هندلر انجام دادم
-        var product = await dbContext.FindAsync<Product>(manufactureEmail, produceDate) ?? throw new Exception("Product not found.");
+        //if (!await dbContext.Products.AnyAsync(p => p.ManufactureEmail == product.ManufactureEmail && p.ProduceDate == product.ProduceDate)) throw new Exception("Product not found.");
+        //var product = await dbContext.FindAsync<Product>([manufactureEmail, produceDate], cancellationToken) ?? throw new Exception("Product not found.");
 
-        dbContext.Remove(product);
+        dbContext.Update(product);
+        if (saveNow)
+        {
+            var affectedRows = await dbContext.SaveChangesAsync(cancellationToken);
+            return affectedRows > 0;
+        }
+        return true;
     }
 
-    public async Task<int> SaveChangesAsync() => await dbContext.SaveChangesAsync();
+    public async Task<bool> DeleteAsync(string manufactureEmail, DateTime produceDate, CancellationToken cancellationToken = default, bool saveNow = true)
+    {
+        // TODO : شاید چک کردن وجود داشتن یا نداشتن انتیتی را در هندلر انجام دادم
+        var product = await dbContext.FindAsync<Product>([manufactureEmail, produceDate], cancellationToken) ?? throw new Exception("Product not found.");
+        dbContext.Remove(product);
+
+        if (saveNow)
+        {
+            var affectedRows = await dbContext.SaveChangesAsync(cancellationToken);
+            return affectedRows > 0;
+        }
+        return true;
+    }
+
+    public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) => await dbContext.SaveChangesAsync(cancellationToken);
 }

@@ -5,13 +5,15 @@ namespace ProductManagementSystem.Application.Products.Commands.CreateProduct;
 
 public record CreateProductCommand(string? Name, string? ManufactureEmail, DateTime ProduceDate, string? ManufacturePhone, bool IsAvailable) : ICommand<CreateProductResult>;
 
-public record CreateProductResult(string ManufactureEmail, DateTime ProduceDate);
+public record CreateProductResult(string? ManufactureEmail, DateTime? ProduceDate);
 
 public class CreateProductCommandValidator : AbstractValidator<CreateProductCommand>
 {
     public CreateProductCommandValidator()
     {
-        RuleFor(x => x.Name).NotEmpty().WithMessage("Name is required");
+        RuleFor(x => x.Name)
+            .NotEmpty().WithMessage("Name is required")
+            .MaximumLength(100).WithMessage("Name max allowed length is 100 character");
 
         RuleFor(x => x.ManufactureEmail)
             .NotEmpty().WithMessage("ManufactureEmail is required.")
@@ -25,6 +27,6 @@ public class CreateProductCommandValidator : AbstractValidator<CreateProductComm
     private bool IsValidPhoneNumberFormat(string? phoneNumber)
     {
         // Example: Check if the phone number starts with '01'
-        return (phoneNumber?.StartsWith('0') ?? false) && int.TryParse(phoneNumber, out var _);
+        return (phoneNumber?.StartsWith('0') ?? false) && long.TryParse(phoneNumber, out var _);
     }
 }

@@ -1,11 +1,14 @@
-﻿using ProductManagementSystem.Application.CQRS;
+﻿using ProductManagementSystem.Application.Common.Interfaces;
+using ProductManagementSystem.Application.CQRS;
 
 namespace ProductManagementSystem.Application.Products.Commands.DeleteProduct;
 
-public class DeleteProductHandler : ICommandHandler<DeleteProductCommand, DeleteProductResult>
+public class DeleteProductHandler(IProductRepository productRepository) : ICommandHandler<DeleteProductCommand, DeleteProductResult>
 {
-    public Task<DeleteProductResult> Handle(DeleteProductCommand command, CancellationToken cancellationToken)
+    public async Task<DeleteProductResult> Handle(DeleteProductCommand command, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var result = await productRepository.DeleteAsync(command.ManufactureEmail!, command.ProduceDate, cancellationToken);
+
+        return new DeleteProductResult(result);
     }
 }

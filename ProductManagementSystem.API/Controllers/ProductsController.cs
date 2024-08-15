@@ -16,7 +16,7 @@ namespace ProductManagementSystem.API.Controllers;
 [ApiController]
 public class ProductsController(IMediator mediator) : ControllerBase
 {
-    /// <summary>لیست محصولات/summary>
+    /// <summary>لیست محصولات</summary>
     [HttpGet("[action]")]
     public async Task<IActionResult> Products([FromQuery] GetProductsRequest request, CancellationToken cancellationToken)
     {
@@ -26,7 +26,7 @@ public class ProductsController(IMediator mediator) : ControllerBase
         return Ok(response);
     }
 
-    /// <summary>افزودن محصول/summary>
+    /// <summary>افزودن محصول</summary>
     [HttpPost]
     public async Task<IActionResult> Create(CreateProductRequest request, CancellationToken cancellationToken)
     {
@@ -36,7 +36,7 @@ public class ProductsController(IMediator mediator) : ControllerBase
         return Ok(response);
     }
 
-    /// <summary>ادیت محصول/summary>
+    /// <summary>ادیت محصول</summary>
     [HttpPut]
     public async Task<IActionResult> Update(UpdateProductRequest request, CancellationToken cancellationToken)
     {
