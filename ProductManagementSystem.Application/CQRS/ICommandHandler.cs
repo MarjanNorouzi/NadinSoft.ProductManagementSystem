@@ -1,9 +1,16 @@
-﻿namespace ProductManagementSystem.Application.CQRS;
+﻿using MediatR;
 
-public interface ICommandHandler<in TCommand, TResult>
+namespace ProductManagementSystem.Application.CQRS;
+
+public interface ICommandHandler<in TCommand> : ICommandHandler<TCommand, Unit>
+    where TCommand : ICommand<Unit>
+{
+
+}
+
+public interface ICommandHandler<in TCommand, TResult> : IRequestHandler<TCommand, TResult>
     where TCommand : ICommand<TResult>
     where TResult : notnull
 {
-    Task<TResult> HandleAsync(TCommand command, CancellationToken cancellationToken);
-}
 
+}

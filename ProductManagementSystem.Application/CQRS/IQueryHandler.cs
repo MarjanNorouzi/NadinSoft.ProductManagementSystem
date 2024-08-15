@@ -1,8 +1,10 @@
-﻿namespace ProductManagementSystem.Application.CQRS;
+﻿using MediatR;
 
-public interface IQueryHandler<TQuery, TResult>
+namespace ProductManagementSystem.Application.CQRS;
+
+public interface IQueryHandler<in TQuery, TResult> : IRequestHandler<TQuery, TResult>
     where TQuery : IQuery<TResult>
     where TResult : notnull
 {
-    Task<TResult> HandleAsync(TQuery query, CancellationToken cancellationToken);
+
 }

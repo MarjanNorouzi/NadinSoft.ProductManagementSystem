@@ -1,6 +1,8 @@
-﻿namespace ProductManagementSystem.Application.CQRS;
+﻿using MediatR;
 
-public interface IQuery<TResult>
+namespace ProductManagementSystem.Application.CQRS;
+
+public interface IQuery<out TResult> : IRequest<TResult>
     where TResult : notnull
 {
 }
