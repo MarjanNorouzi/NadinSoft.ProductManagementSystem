@@ -1,3 +1,3 @@
 ﻿namespace ProductManagementSystem.Application.DTOs.Products.CreateProduct;
 
-public record CreateProductResponse(int Id);
+public record CreateProductResponse(string ManufactureEmail, DateTime ProduceDate);

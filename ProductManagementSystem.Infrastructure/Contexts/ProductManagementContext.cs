@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ProductManagementSystem.Domain.Models;
-using ProductManagementSystem.Infrastructure.Configurations;
+using ProductManagementSystem.Infrastructure.Products.Persistence;
 
 namespace ProductManagementSystem.Infrastructure.Contexts
 {

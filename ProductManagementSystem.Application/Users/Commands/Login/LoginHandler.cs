@@ -13,7 +13,7 @@ public class LoginHandler
 {
     public async Task<LoginResult> Handle(LoginCommand command, CancellationToken cancellationToken)
     {
-        var user = await userManager.FindByNameAsync(command.UserName!) ?? throw new Exception("User not found.");
+        var user = await userManager.FindByNameAsync(command.UserName!);
 
         if (await userManager.CheckPasswordAsync(user, command.Password!))
         {
