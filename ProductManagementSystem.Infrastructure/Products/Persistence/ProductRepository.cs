@@ -21,7 +21,7 @@ public class ProductRepository(ProductManagementContext dbContext) : IProductRep
 
     public IAsyncEnumerable<Product> GetAllAsync(int? userId) => dbContext.Products.Where(p => p.UserId == userId || !userId.HasValue).AsAsyncEnumerable();
 
-    public async Task<IEnumerable<Product>> GetAllAsync(CancellationToken cancellationToken = default) => await dbContext.Products.ToListAsync(cancellationToken);
+    public async Task<IEnumerable<Product>> GetAllAsync(CancellationToken cancellationToken = default) => await dbContext.Products.Include(x => x.User).ToListAsync(cancellationToken);
 
     public async Task<bool> UpdateAsync(Product product, CancellationToken cancellationToken = default, bool saveNow = true)
     {

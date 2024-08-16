@@ -14,12 +14,13 @@ public class TokenService : ITokenService
     private readonly JwtSecurityTokenHandler jwtSecurityTokenHandler = new();
     private readonly SigningCredentials _signingCredentials;
     private readonly int _tokenLifeTime = 5;
+    private readonly SymmetricSecurityKey _key;
 
     public TokenService(IConfiguration configuration)
     {
         _tokenLifeTime = Convert.ToInt32(configuration["Jwt:LifeTimeInMinutes"]!);
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("Jwt:Key").ToString()!));
-        _signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("Jwt:Key").ToString()!));
+        _signingCredentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha256);
     }
 
     public string GenerateToken(params Claim[] claims)
@@ -34,9 +35,34 @@ public class TokenService : ITokenService
 
         return jwtSecurityTokenHandler.WriteToken(token);
     }
+
+    public ClaimsPrincipal Validate(string token)   
+    {
+        var parameters = new TokenValidationParameters()
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            RequireExpirationTime = true,
+            ValidateIssuerSigningKey = true,
+            ValidateLifetime = true, // Ensure the token hasn't expired
+            IssuerSigningKey = _key,
+            TokenDecryptionKey = _key,
+            ClockSkew = TimeSpan.Zero // No tolerance for clock skew
+        };
+
+        var tokenHandler = new JwtSecurityTokenHandler();
+        if (tokenHandler.CanReadToken(token))
+        {
+
+            return tokenHandler.ValidateToken(token, parameters, out SecurityToken securityToken);
+        }
+        return null;
+    }
 }
 
 public interface ITokenService
 {
     public string GenerateToken(params Claim[] claims);
+
+    public ClaimsPrincipal Validate(string token);
 }

@@ -10,6 +10,7 @@ builder.Services
     .AddInfrastructureServices(builder.Configuration)
     .AddApiServices(builder.Configuration);
 
+
 var app = builder.Build();
 
 app.UseApiServices();
@@ -18,5 +19,7 @@ if (app.Environment.IsDevelopment())
 {
     app.InitializeDatabaseAsync();
 }
+
+//app.UseCors("CorsPolicy");
 
 app.Run();

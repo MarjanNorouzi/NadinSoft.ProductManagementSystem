@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
 using ProductManagementSystem.Domain.Models;
 using ProductManagementSystem.Infrastructure.Contexts;
-using System.Reflection;
 
 namespace ProductManagementSystem.API;
 

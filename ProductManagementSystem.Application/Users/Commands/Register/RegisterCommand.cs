@@ -3,7 +3,7 @@ using ProductManagementSystem.Application.CQRS;
 
 namespace ProductManagementSystem.Application.Users.Commands.Register;
 
-public record RegisterCommand(string? UserName, string? Password, string? ConfirmPassword, string? FirstName, string? LastName)
+public record RegisterCommand(string? UserName, string? Password, string? ConfirmPassword)
     : ICommand<RegisterResult>;
 
 public record RegisterResult(bool IsSuccess);
@@ -17,9 +17,5 @@ public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
         RuleFor(x => x.Password).NotEmpty().WithMessage("Password is required.");
 
         RuleFor(x => x.ConfirmPassword).NotEmpty().WithMessage("ConfirmPassword is required.");
-
-        RuleFor(x => x.FirstName).NotEmpty().WithMessage("FirstName is required.");
-
-        RuleFor(x => x.LastName).NotEmpty().WithMessage("LastName is required.");
     }
 }

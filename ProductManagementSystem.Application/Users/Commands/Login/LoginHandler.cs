@@ -19,6 +19,7 @@ public class LoginHandler
         {
             return new LoginResult(tokenService.GenerateToken
             (
+                new Claim(ClaimTypes.Role, "User"),
                 new Claim(ClaimTypes.Name, user.UserName!),
                 new Claim("UserId", user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())

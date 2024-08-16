@@ -1,6 +1,8 @@
 ﻿using Mapster;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ProductManagementSystem.API.Filter;
 using ProductManagementSystem.Application.DTOs.Products.CreateProduct;
 using ProductManagementSystem.Application.DTOs.Products.DeleteProduct;
 using ProductManagementSystem.Application.DTOs.Products.GetProducts;
@@ -17,6 +19,7 @@ namespace ProductManagementSystem.API.Controllers;
 public class ProductsController(IMediator mediator) : ControllerBase
 {
     /// <summary>لیست محصولات</summary>
+    [AllowAnonymous]
     [HttpGet("[action]")]
     public async Task<IActionResult> Products([FromQuery] GetProductsRequest request, CancellationToken cancellationToken)
     {
@@ -27,6 +30,7 @@ public class ProductsController(IMediator mediator) : ControllerBase
     }
 
     /// <summary>افزودن محصول</summary>
+    [CustomAuthorize(false, "User")]
     [HttpPost]
     public async Task<IActionResult> Create(CreateProductRequest request, CancellationToken cancellationToken)
     {
@@ -37,6 +41,7 @@ public class ProductsController(IMediator mediator) : ControllerBase
     }
 
     /// <summary>ادیت محصول</summary>
+    [CustomAuthorize(false, "User")]
     [HttpPut]
     public async Task<IActionResult> Update(UpdateProductRequest request, CancellationToken cancellationToken)
     {
@@ -47,6 +52,7 @@ public class ProductsController(IMediator mediator) : ControllerBase
     }
 
     /// <summary>حذف محصول</summary>
+    [CustomAuthorize(false, "User")]
     [HttpDelete]
     public async Task<IActionResult> Delete(DeleteProductRequest request, CancellationToken cancellationToken)
     {
