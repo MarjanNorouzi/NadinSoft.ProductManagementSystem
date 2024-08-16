@@ -1,5 +1,4 @@
 ﻿using ProductManagementSystem.Application.Common.Interfaces;
-using ProductManagementSystem.Application.CQRS;
 
 namespace ProductManagementSystem.Application.Products.Queries.GetProducts;
 

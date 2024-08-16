@@ -1,7 +1,4 @@
-﻿using FluentValidation;
-using ProductManagementSystem.Application.CQRS;
-
-namespace ProductManagementSystem.Application.Products.Commands.UpdateProduct;
+﻿namespace ProductManagementSystem.Application.Products.Commands.UpdateProduct;
 
 public record UpdateProductCommand(string? Name, string? ManufactureEmail, DateTime ProduceDate, string? ManufacturePhone, bool IsAvailable) : ICommand<UpdateProductResult>;
 
@@ -24,6 +21,7 @@ public class UpdateProductCommandValidator : AbstractValidator<UpdateProductComm
             .Must(IsValidPhoneNumberFormat)
             .Length(11, 11).WithMessage("ManufacturePhone must be exactly 11 digits long.");
     }
+
     private bool IsValidPhoneNumberFormat(string? phoneNumber)
     {
         return (phoneNumber?.StartsWith('0') ?? false) && long.TryParse(phoneNumber, out var _);

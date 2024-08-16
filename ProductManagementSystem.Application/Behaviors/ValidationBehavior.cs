@@ -1,8 +1,4 @@
-﻿using FluentValidation;
-using MediatR;
-using ProductManagementSystem.Application.CQRS;
-
-namespace ProductManagementSystem.Application.Behaviors;
+﻿namespace ProductManagementSystem.Application.Behaviors;
 
 public class ValidationBehavior<TRequest, TResponse>(
     IEnumerable<IValidator<TRequest>> validators)

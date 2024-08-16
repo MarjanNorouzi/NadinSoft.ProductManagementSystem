@@ -1,6 +1,4 @@
-﻿using System.Net;
-
-namespace ProductManagementSystem.API.Middlewares;
+﻿namespace ProductManagementSystem.API.Middlewares;
 
 public class CustomExceptionHandlerMiddleware(RequestDelegate next)
 {
@@ -26,8 +24,16 @@ public class CustomExceptionHandlerMiddleware(RequestDelegate next)
         }
         catch (FluentValidation.ValidationException ex)
         {
-            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
             await context.Response.WriteAsJsonAsync(ex.Errors.Select(x => $"{x.PropertyName}: {x.ErrorMessage}"));
+        }
+        catch (DbUpdateException ex)
+        {
+            if(ex.InnerException.Message.Contains("Violation of PRIMARY KEY constraint 'PK_Products'. Cannot insert duplicate key in object 'dbo.Products'. The duplicate key value is"))
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                await context.Response.WriteAsJsonAsync("The product with this 'ManufactureEmail' and 'ProduceDate' is already exist.");
+            }
         }
         catch (Exception)
         {

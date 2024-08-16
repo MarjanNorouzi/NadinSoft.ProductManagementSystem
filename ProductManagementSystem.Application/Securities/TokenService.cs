@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using ProductManagementSystem.Application.Common.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -36,7 +37,7 @@ public class TokenService : ITokenService
         return jwtSecurityTokenHandler.WriteToken(token);
     }
 
-    public ClaimsPrincipal Validate(string token)   
+    public ClaimsPrincipal Validate(string token)
     {
         var parameters = new TokenValidationParameters()
         {
@@ -58,11 +59,4 @@ public class TokenService : ITokenService
         }
         return null;
     }
-}
-
-public interface ITokenService
-{
-    public string GenerateToken(params Claim[] claims);
-
-    public ClaimsPrincipal Validate(string token);
 }

@@ -1,7 +1,4 @@
-﻿using FluentValidation;
-using ProductManagementSystem.Application.CQRS;
-
-namespace ProductManagementSystem.Application.Products.Commands.CreateProduct;
+﻿namespace ProductManagementSystem.Application.Products.Commands.CreateProduct;
 
 public record CreateProductCommand(string? Name, string? ManufactureEmail, DateTime ProduceDate, string? ManufacturePhone, bool IsAvailable) : ICommand<CreateProductResult>;
 

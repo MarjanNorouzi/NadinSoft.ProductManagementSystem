@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.Extensions.DependencyInjection;
-using ProductManagementSystem.Infrastructure.Contexts;
 
 namespace ProductManagementSystem.Infrastructure.Extensions;
 

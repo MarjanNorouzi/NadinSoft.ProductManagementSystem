@@ -1,7 +1,4 @@
-﻿using FluentValidation;
-using ProductManagementSystem.Application.CQRS;
-
-namespace ProductManagementSystem.Application.Products.Commands.DeleteProduct;
+﻿namespace ProductManagementSystem.Application.Products.Commands.DeleteProduct;
 
 public record DeleteProductCommand(string? ManufactureEmail, DateTime ProduceDate) : ICommand<DeleteProductResult>;
 

@@ -1,7 +1,4 @@
-﻿using Mapster;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using ProductManagementSystem.Application.DTOs.Users.Login;
+﻿using ProductManagementSystem.Application.DTOs.Users.Login;
 using ProductManagementSystem.Application.DTOs.Users.Register;
 using ProductManagementSystem.Application.Users.Commands.Login;
 using ProductManagementSystem.Application.Users.Commands.Register;

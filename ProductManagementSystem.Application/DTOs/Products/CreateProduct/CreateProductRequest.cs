@@ -39,6 +39,7 @@ public record CreateProductRequest
 }
 
 // because of limitation of 'example' tag on 'positional records', for a sample of documentation, make this request
+
 //public record CreateProductRequest(
 //    string? Name,
 //    string? ManufactureEmail,

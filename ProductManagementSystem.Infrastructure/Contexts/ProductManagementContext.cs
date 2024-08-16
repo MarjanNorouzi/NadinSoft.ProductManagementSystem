@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using ProductManagementSystem.Domain.Models;
-using ProductManagementSystem.Infrastructure.Products.Persistence;
 
 namespace ProductManagementSystem.Infrastructure.Contexts
 {

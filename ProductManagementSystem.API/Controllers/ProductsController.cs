@@ -1,7 +1,4 @@
-﻿using Mapster;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
 using ProductManagementSystem.API.Filter;
 using ProductManagementSystem.Application.DTOs.Products.CreateProduct;
 using ProductManagementSystem.Application.DTOs.Products.DeleteProduct;

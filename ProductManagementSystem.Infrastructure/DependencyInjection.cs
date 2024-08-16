@@ -1,9 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using ProductManagementSystem.Application.Common.Interfaces;
-using ProductManagementSystem.Infrastructure.Contexts;
-using ProductManagementSystem.Infrastructure.Products.Persistence;
+﻿using Microsoft.Extensions.Configuration;
 
 namespace ProductManagementSystem.Infrastructure;
 

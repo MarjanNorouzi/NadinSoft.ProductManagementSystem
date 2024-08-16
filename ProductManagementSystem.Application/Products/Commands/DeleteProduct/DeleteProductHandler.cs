@@ -1,7 +1,4 @@
 ﻿using ProductManagementSystem.Application.Common.Interfaces;
-using ProductManagementSystem.Application.CQRS;
-using ProductManagementSystem.Application.Securities;
-using System.Net;
 
 namespace ProductManagementSystem.Application.Products.Commands.DeleteProduct;
 

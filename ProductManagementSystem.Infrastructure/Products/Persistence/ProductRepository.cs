@@ -1,10 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ProductManagementSystem.Application.Common.Interfaces;
-using ProductManagementSystem.Domain.Models;
-using ProductManagementSystem.Infrastructure.Contexts;
-using System.Net;
-
-namespace ProductManagementSystem.Infrastructure.Products.Persistence;
+﻿namespace ProductManagementSystem.Infrastructure.Products.Persistence;
 
 public class ProductRepository(ProductManagementContext dbContext) : IProductRepository
 {

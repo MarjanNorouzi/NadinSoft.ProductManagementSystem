@@ -1,6 +1,4 @@
-﻿using System.Net;
-
-namespace ProductManagementSystem.Application.Exceptions;
+﻿namespace ProductManagementSystem.Application.Exceptions;
 
 public class ApplicationException : Exception
 {

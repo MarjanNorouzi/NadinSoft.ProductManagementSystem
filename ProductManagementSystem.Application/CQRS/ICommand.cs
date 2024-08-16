@@ -1,6 +1,4 @@
-﻿using MediatR;
-
-namespace ProductManagementSystem.Application.CQRS;
+﻿namespace ProductManagementSystem.Application.CQRS;
 
 public interface ICommand : IRequest<Unit>
 {

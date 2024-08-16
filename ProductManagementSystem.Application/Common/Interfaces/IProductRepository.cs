@@ -1,5 +1,3 @@
-using ProductManagementSystem.Domain.Models;
-
 namespace ProductManagementSystem.Application.Common.Interfaces;
 
 public interface IProductRepository

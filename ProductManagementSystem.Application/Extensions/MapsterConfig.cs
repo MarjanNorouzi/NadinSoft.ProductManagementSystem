@@ -1,7 +1,6 @@
 ﻿using Mapster;
 using Microsoft.Extensions.DependencyInjection;
 using ProductManagementSystem.Application.DTOs.Products.GetProducts;
-using ProductManagementSystem.Domain.Models;
 using System.Reflection;
 
 namespace ProductManagementSystem.Application.Extensions;

@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using ProductManagementSystem.Application.CQRS;
-using ProductManagementSystem.Application.Securities;
-using ProductManagementSystem.Domain.Models;
+using ProductManagementSystem.Application.Common.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 

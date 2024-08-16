@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using ProductManagementSystem.Application.CQRS;
-using ProductManagementSystem.Domain.Models;
 
 namespace ProductManagementSystem.Application.Users.Commands.Register;
 

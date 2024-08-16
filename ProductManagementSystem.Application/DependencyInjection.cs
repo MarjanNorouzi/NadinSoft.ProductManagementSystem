@@ -1,7 +1,7 @@
-﻿using FluentValidation;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProductManagementSystem.Application.Behaviors;
+using ProductManagementSystem.Application.Common.Interfaces;
 using ProductManagementSystem.Application.Extensions;
 using ProductManagementSystem.Application.Securities;
 using System.Reflection;
@@ -24,7 +24,7 @@ public static class DependencyInjection
 
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IUserContext, UserContext>();
-        
+
         return services;
     }
 }

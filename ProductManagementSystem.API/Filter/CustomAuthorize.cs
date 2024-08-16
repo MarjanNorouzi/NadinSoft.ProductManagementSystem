@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using ProductManagementSystem.Application.Securities;
-using System.Net;
+﻿using Microsoft.AspNetCore.Mvc.Filters;
+using ProductManagementSystem.Application.Common.Interfaces;
 using System.Security.Claims;
 
 namespace ProductManagementSystem.API.Filter;
@@ -40,7 +38,7 @@ public class CustomAuthorize : ActionFilterAttribute
                 if (claimsPrincipal != null)
                 {
                     var userId = claimsPrincipal.Claims.FirstOrDefault(c => c.Type == "UserId")!.Value;
-                   
+
                     var userContext = (IUserContext)context.HttpContext.RequestServices.GetService(typeof(IUserContext))!;
                     userContext.Id = int.Parse(userId);
 

@@ -1,8 +1,4 @@
-﻿using Mapster;
-using ProductManagementSystem.Application.Common.Interfaces;
-using ProductManagementSystem.Application.CQRS;
-using ProductManagementSystem.Application.Securities;
-using ProductManagementSystem.Domain.Models;
+﻿using ProductManagementSystem.Application.Common.Interfaces;
 
 namespace ProductManagementSystem.Application.Products.Commands.CreateProduct;
 
@@ -12,7 +8,7 @@ public class CreateProductHandler(IProductRepository productRepository, IUserCon
     {
         var product = command.Adapt<Product>();
         product.UserId = userContext.Id;
-        var result = await productRepository.AddAsync(product);
+        var result = (await productRepository.AddAsync(product)) ?? new Product();
 
         return new CreateProductResult(result.ManufactureEmail, result.ProduceDate);
     }
