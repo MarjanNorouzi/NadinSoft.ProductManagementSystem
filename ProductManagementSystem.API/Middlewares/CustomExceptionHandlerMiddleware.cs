@@ -2,14 +2,9 @@
 
 namespace ProductManagementSystem.API.Middlewares;
 
-public class CustomExceptionHandlerMiddleware
+public class CustomExceptionHandlerMiddleware(RequestDelegate next)
 {
-    public CustomExceptionHandlerMiddleware(RequestDelegate next)
-    {
-        Next = next;
-    }
-
-    public RequestDelegate Next { get; set; }
+    public RequestDelegate Next { get; set; } = next;
 
     public async Task InvokeAsync(HttpContext context)
     {
@@ -34,7 +29,7 @@ public class CustomExceptionHandlerMiddleware
             context.Response.StatusCode = StatusCodes.Status400BadRequest;
             await context.Response.WriteAsJsonAsync(ex.Errors.Select(x => $"{x.PropertyName}: {x.ErrorMessage}"));
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             await UnHandleError(context);
         }

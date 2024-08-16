@@ -10,11 +10,11 @@ public interface IProductRepository
 
     IAsyncEnumerable<Product> GetAllAsync(int? userId);
 
-    Task<IEnumerable<Product>> GetAllAsync(CancellationToken cancellationToken = default);
+    Task<IEnumerable<Product>> GetAllAsync(int? userId, CancellationToken cancellationToken = default);
 
     Task<bool> UpdateAsync(Product product, CancellationToken cancellationToken = default, bool saveNow = true);
 
-    Task<bool> DeleteAsync(string manufactureEmail, DateTime produceDate, CancellationToken cancellationToken = default, bool saveNow = true);
+    Task<bool> DeleteAsync(Product product, CancellationToken cancellationToken = default, bool saveNow = true);
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

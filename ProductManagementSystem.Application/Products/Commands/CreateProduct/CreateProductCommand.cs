@@ -26,7 +26,6 @@ public class CreateProductCommandValidator : AbstractValidator<CreateProductComm
     }
     private bool IsValidPhoneNumberFormat(string? phoneNumber)
     {
-        // Example: Check if the phone number starts with '01'
         return (phoneNumber?.StartsWith('0') ?? false) && long.TryParse(phoneNumber, out var _);
     }
 }

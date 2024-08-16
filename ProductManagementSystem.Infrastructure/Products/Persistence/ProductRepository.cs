@@ -22,12 +22,12 @@ public class ProductRepository(ProductManagementContext dbContext) : IProductRep
 
     public IAsyncEnumerable<Product> GetAllAsync(int? userId) => dbContext.Products.Where(p => p.UserId == userId || !userId.HasValue).AsAsyncEnumerable();
 
-    public async Task<IEnumerable<Product>> GetAllAsync(CancellationToken cancellationToken = default) => await dbContext.Products.Include(x => x.User).ToListAsync(cancellationToken);
+    public async Task<IEnumerable<Product>> GetAllAsync(int? userId, CancellationToken cancellationToken = default) => await dbContext.Products.Include(x => x.User).Where(p => p.UserId == userId || !userId.HasValue).ToListAsync(cancellationToken);
 
     public async Task<bool> UpdateAsync(Product product, CancellationToken cancellationToken = default, bool saveNow = true)
     {
-        //if (!await dbContext.Products.AnyAsync(p => p.ManufactureEmail == product.ManufactureEmail && p.ProduceDate == product.ProduceDate)) throw new Exception("Product not found.");
-        //var product = await dbContext.FindAsync<Product>([manufactureEmail, produceDate], cancellationToken) ?? throw new Exception("Product not found.");
+        if (!await dbContext.Products.AnyAsync(p => p.ManufactureEmail == product.ManufactureEmail && p.ProduceDate == product.ProduceDate))
+            throw new Application.Exceptions.ApplicationException("Product not found.", HttpStatusCode.NotFound, false);
 
         dbContext.Update(product);
         if (saveNow)
@@ -38,10 +38,8 @@ public class ProductRepository(ProductManagementContext dbContext) : IProductRep
         return true;
     }
 
-    public async Task<bool> DeleteAsync(string manufactureEmail, DateTime produceDate, CancellationToken cancellationToken = default, bool saveNow = true)
+    public async Task<bool> DeleteAsync(Product product, CancellationToken cancellationToken = default, bool saveNow = true)
     {
-        // TODO : شاید چک کردن وجود داشتن یا نداشتن انتیتی را در هندلر انجام دادم
-        var product = await dbContext.FindAsync<Product>([manufactureEmail, produceDate], cancellationToken) ?? throw new Application.Exceptions.ApplicationException("Product not found.", HttpStatusCode.NotFound, false);
         dbContext.Remove(product);
 
         if (saveNow)

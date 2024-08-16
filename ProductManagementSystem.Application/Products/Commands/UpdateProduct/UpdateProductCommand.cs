@@ -11,20 +11,21 @@ public class UpdateProductCommandValidator : AbstractValidator<UpdateProductComm
 {
     public UpdateProductCommandValidator()
     {
-        RuleFor(x => x.Name).NotEmpty().WithMessage("Name is required");
+        RuleFor(x => x.Name)
+            .NotEmpty().WithMessage("Name is required.")
+            .MaximumLength(100).WithMessage("Name max allowed length is 100 character.");
 
         RuleFor(x => x.ManufactureEmail)
             .NotEmpty().WithMessage("ManufactureEmail is required.")
             .EmailAddress().WithMessage("ManufactureEmail is not valid.");
 
         RuleFor(x => x.ManufacturePhone)
-            .NotEmpty().WithMessage("ManufacturePhone is required")
+            .NotEmpty().WithMessage("ManufacturePhone is required.")
             .Must(IsValidPhoneNumberFormat)
             .Length(11, 11).WithMessage("ManufacturePhone must be exactly 11 digits long.");
     }
     private bool IsValidPhoneNumberFormat(string? phoneNumber)
     {
-        // Example: Check if the phone number starts with '01'
-        return (phoneNumber?.StartsWith('0') ?? false) && int.TryParse(phoneNumber, out var _);
+        return (phoneNumber?.StartsWith('0') ?? false) && long.TryParse(phoneNumber, out var _);
     }
 }

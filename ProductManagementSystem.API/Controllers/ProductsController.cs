@@ -14,6 +14,7 @@ using ProductManagementSystem.Application.Products.Queries.GetProducts;
 
 namespace ProductManagementSystem.API.Controllers;
 
+/// <summary>کنترلر محصولات</summary>
 [Route("api/[controller]")]
 [ApiController]
 public class ProductsController(IMediator mediator) : ControllerBase

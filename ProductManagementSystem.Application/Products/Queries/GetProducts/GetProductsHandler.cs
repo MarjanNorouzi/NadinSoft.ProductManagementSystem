@@ -7,7 +7,7 @@ public class GetProductsHandler(IProductRepository productRepository) : IQueryHa
 {
     public async Task<GetProductsResult> Handle(GetProductsQuery query, CancellationToken cancellationToken)
     {
-        var result = await productRepository.GetAllAsync(cancellationToken);
+        var result = await productRepository.GetAllAsync(query.CreatorId, cancellationToken);
 
         return new GetProductsResult(result);
     }
