@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
+using ProductManagementSystem.API.Middlewares;
 using ProductManagementSystem.Domain.Models;
 using ProductManagementSystem.Infrastructure.Contexts;
 
@@ -68,8 +69,11 @@ public static class DependencyInjection
         app.UseSwagger();
         app.UseSwaggerUI();
 
-        app.UseAuthentication();
-        app.UseAuthorization();
+        app.UseHttpsRedirection()
+            .UseAuthentication()
+            .UseAuthorization()
+            .UseMiddleware<CustomExceptionHandlerMiddleware>()
+            .UseCors("CorsPolicy");
 
         app.MapControllers();
 

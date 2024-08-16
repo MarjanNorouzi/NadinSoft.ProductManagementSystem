@@ -2,6 +2,7 @@
 using ProductManagementSystem.Application.Common.Interfaces;
 using ProductManagementSystem.Domain.Models;
 using ProductManagementSystem.Infrastructure.Contexts;
+using System.Net;
 
 namespace ProductManagementSystem.Infrastructure.Products.Persistence;
 
@@ -40,7 +41,7 @@ public class ProductRepository(ProductManagementContext dbContext) : IProductRep
     public async Task<bool> DeleteAsync(string manufactureEmail, DateTime produceDate, CancellationToken cancellationToken = default, bool saveNow = true)
     {
         // TODO : شاید چک کردن وجود داشتن یا نداشتن انتیتی را در هندلر انجام دادم
-        var product = await dbContext.FindAsync<Product>([manufactureEmail, produceDate], cancellationToken) ?? throw new Exception("Product not found.");
+        var product = await dbContext.FindAsync<Product>([manufactureEmail, produceDate], cancellationToken) ?? throw new Application.Exceptions.ApplicationException("Product not found.", HttpStatusCode.NotFound, false);
         dbContext.Remove(product);
 
         if (saveNow)
