@@ -6,6 +6,9 @@ public class UpdateProductHandler(IProductRepository productRepository, IUserCon
 {
     public async Task<UpdateProductResult> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
     {
+        // با این فرض که مقادیر یونیک 
+        // ManufactureEmail و ProduceDate
+        // ثابت و غیرقابل تغییر هستند
         var product = await productRepository.GetByIdAsync(command.ManufactureEmail!, command.ProduceDate, cancellationToken)
             ?? throw new Exceptions.ApplicationException("Product not found.", HttpStatusCode.NotFound, false);
 

@@ -29,13 +29,17 @@ public class CustomExceptionHandlerMiddleware(RequestDelegate next)
         }
         catch (DbUpdateException ex)
         {
-            if(ex.InnerException.Message.Contains("Violation of PRIMARY KEY constraint 'PK_Products'. Cannot insert duplicate key in object 'dbo.Products'. The duplicate key value is"))
+            if ((ex.InnerException as Microsoft.Data.SqlClient.SqlException).Number == 2627)
             {
                 context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 await context.Response.WriteAsJsonAsync("The product with this 'ManufactureEmail' and 'ProduceDate' is already exist.");
             }
+            else
+            {
+                await UnHandleError(context);
+            }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             await UnHandleError(context);
         }
