@@ -14,7 +14,7 @@ public class CustomExceptionHandlerMiddleware(RequestDelegate next)
         {
             if (ex.IsConfidentiality == false)
             {
-                context.Response.StatusCode = (int)ex.StatusCode;
+                context.Response.StatusCode = ex.StatusCode;
                 await context.Response.WriteAsJsonAsync(ex.Message);
             }
             else
@@ -24,14 +24,14 @@ public class CustomExceptionHandlerMiddleware(RequestDelegate next)
         }
         catch (FluentValidation.ValidationException ex)
         {
-            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
             await context.Response.WriteAsJsonAsync(ex.Errors.Select(x => $"{x.PropertyName}: {x.ErrorMessage}"));
         }
         catch (DbUpdateException ex)
         {
             if ((ex.InnerException as Microsoft.Data.SqlClient.SqlException).Number == 2627)
             {
-                context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                context.Response.StatusCode = StatusCodes.Status400BadRequest;
                 await context.Response.WriteAsJsonAsync("The product with this 'ManufactureEmail' and 'ProduceDate' is already exist.");
             }
             else
@@ -47,7 +47,7 @@ public class CustomExceptionHandlerMiddleware(RequestDelegate next)
 
     private static async Task UnHandleError(HttpContext context)
     {
-        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
         await context.Response.WriteAsJsonAsync("InternalServerError");
     }
 }

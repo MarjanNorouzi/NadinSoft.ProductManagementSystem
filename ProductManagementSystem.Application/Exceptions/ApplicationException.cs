@@ -2,12 +2,12 @@
 
 public class ApplicationException : Exception
 {
-    public ApplicationException(string message, HttpStatusCode statusCode, bool isConfidentiality) : base(message)
+    public ApplicationException(string message, int statusCode, bool isConfidentiality) : base(message)
     {
         StatusCode = statusCode;
         IsConfidentiality = isConfidentiality;
     }
 
-    public HttpStatusCode StatusCode { get; private set; }
+    public int StatusCode { get; private set; }
     public bool IsConfidentiality { get; private set; }
 }

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using ProductManagementSystem.API.Filter;
+﻿using ProductManagementSystem.API.Filter;
 using ProductManagementSystem.Application.DTOs.Products.CreateProduct;
 using ProductManagementSystem.Application.DTOs.Products.DeleteProduct;
 using ProductManagementSystem.Application.DTOs.Products.GetProducts;
@@ -17,7 +16,7 @@ namespace ProductManagementSystem.API.Controllers;
 public class ProductsController(IMediator mediator) : ControllerBase
 {
     /// <summary>لیست محصولات</summary>
-    [AllowAnonymous]
+    [CustomAuthorize(true)]
     [HttpGet("[action]")]
     public async Task<IActionResult> Products([FromQuery] GetProductsRequest request, CancellationToken cancellationToken)
     {

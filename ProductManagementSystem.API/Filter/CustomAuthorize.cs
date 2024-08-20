@@ -62,8 +62,8 @@ public class CustomAuthorize : ActionFilterAttribute
             UnAuthorize(context);
     }
 
-    private void UnAuthorize(ActionExecutingContext context)
+    private static void UnAuthorize(ActionExecutingContext context)
     {
-        context.Result = new JsonResult("Unauthorized") { StatusCode = (int)HttpStatusCode.Unauthorized };
+        context.Result = new JsonResult("Unauthorized") { StatusCode = StatusCodes.Status401Unauthorized };
     }
 }
