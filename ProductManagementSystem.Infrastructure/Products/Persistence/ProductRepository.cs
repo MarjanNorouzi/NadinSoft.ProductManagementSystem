@@ -1,4 +1,6 @@
-﻿namespace ProductManagementSystem.Infrastructure.Products.Persistence;
+﻿using Microsoft.AspNetCore.Http;
+
+namespace ProductManagementSystem.Infrastructure.Products.Persistence;
 
 public class ProductRepository(ProductManagementContext dbContext) : IProductRepository
 {
@@ -21,7 +23,7 @@ public class ProductRepository(ProductManagementContext dbContext) : IProductRep
     public async Task<bool> UpdateAsync(Product product, CancellationToken cancellationToken = default, bool saveNow = true)
     {
         if (!await dbContext.Products.AnyAsync(p => p.ManufactureEmail == product.ManufactureEmail && p.ProduceDate == product.ProduceDate))
-            throw new Application.Exceptions.ApplicationException("Product not found.", HttpStatusCode.NotFound, false);
+            throw new Application.Exceptions.ApplicationException("Product not found.", StatusCodes.Status404NotFound, false);
 
         dbContext.Update(product);
         if (saveNow)
