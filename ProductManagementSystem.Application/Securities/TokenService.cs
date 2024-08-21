@@ -9,9 +9,6 @@ namespace ProductManagementSystem.Application.Securities;
 
 public class TokenService : ITokenService
 {
-
-    private const string UserIdClaimType = "UserId";
-
     private readonly JwtSecurityTokenHandler jwtSecurityTokenHandler = new();
     private readonly SigningCredentials _signingCredentials;
     private readonly int _tokenLifeTime = 5;
@@ -51,12 +48,11 @@ public class TokenService : ITokenService
             ClockSkew = TimeSpan.Zero // No tolerance for clock skew
         };
 
-        var tokenHandler = new JwtSecurityTokenHandler();
-        if (tokenHandler.CanReadToken(token))
+        if (jwtSecurityTokenHandler.CanReadToken(token))
         {
-
-            return tokenHandler.ValidateToken(token, parameters, out SecurityToken securityToken);
+            return jwtSecurityTokenHandler.ValidateToken(token, parameters, out SecurityToken securityToken);
         }
+
         return null;
     }
 }

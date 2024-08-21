@@ -20,6 +20,13 @@ public static class DependencyInjection
         services.AddControllers();
 
         services.AddEndpointsApiExplorer();
+        AddSwagger(services);
+
+        return services;
+    }
+
+    private static void AddSwagger(IServiceCollection services)
+    {
         services.AddSwaggerGen(options =>
         {
             var xmlFiles = Directory.GetFiles(AppContext.BaseDirectory, "*.xml", SearchOption.TopDirectoryOnly).ToList();
@@ -60,8 +67,6 @@ public static class DependencyInjection
               }
             });
         });
-
-        return services;
     }
 
     public static WebApplication UseApiServices(this WebApplication app)
@@ -70,10 +75,7 @@ public static class DependencyInjection
         app.UseSwaggerUI();
 
         app.UseHttpsRedirection()
-            .UseAuthentication()
-            .UseAuthorization()
-            .UseMiddleware<CustomExceptionHandlerMiddleware>()
-            .UseCors("CorsPolicy");
+            .UseMiddleware<CustomExceptionHandlerMiddleware>();
 
         app.MapControllers();
 
